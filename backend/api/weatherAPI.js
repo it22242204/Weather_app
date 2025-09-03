@@ -26,7 +26,7 @@ async function getweather(cityId){
     const response = await axios.get (BASE_URL, {
         params: { id : cityId, appid: API_KEY, units: 'metric' }
     });
-    console.log(response.data);
+    // console.log(response.data);
     
     const data = {
         name : response.data.name,

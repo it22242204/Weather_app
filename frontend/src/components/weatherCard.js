@@ -1,4 +1,3 @@
-import React from "react";
 import "../css/weathercard.css";
 
 const WeatherCard = ({ name, description, temp }) => {
