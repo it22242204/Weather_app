@@ -1,0 +1,39 @@
+.weather-card {
+  background: linear-gradient(135deg, #305c52, #1a4038);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+  width: 450px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.weather-card h2 {
+    font-family:'Courier New', Courier, monospace;
+  margin: 0;
+  font-size: 2em;
+}
+
+.weather-card .temp-box {
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.weather-card .temp {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.weather-card p {
+  margin: 5px 0;
+  font-size: 1em;
+  color: #d0d0d0;
+}

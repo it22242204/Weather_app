@@ -16,9 +16,9 @@ async function getweather(cityId){
     // console.log(BASE_URL);
     
     if (cacheData) {
-        console.log("cache data",cacheData);
+        // console.log("cache data",cacheData);
         return cacheData;
-        console.log("cache data",cacheData);
+        // console.log("cache data",cacheData);
         
     }
 

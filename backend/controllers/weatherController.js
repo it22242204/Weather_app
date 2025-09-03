@@ -10,7 +10,7 @@ const getWeatherByCity = async (req, res) => {
                 return weather;
             })
         );
-        console.log(results);
+        // console.log(results);
         res.json(results);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch weather data' });
