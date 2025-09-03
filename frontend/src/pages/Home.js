@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import WeatherCard from "../components/weatherCard";
 import "../css/Home.css";
+import AuthButton from "../components/Auth"; 
 
 const Home = () => {
+  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0(); 
   const [weather, setWeather] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
+      if (!isAuthenticated) return;
       try {
-        const response = await fetch("http://localhost:1308/api/weather");
+        const token = await getAccessTokenSilently(); 
+        const response = await fetch("http://localhost:1308/api/weather", {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -24,10 +33,30 @@ const Home = () => {
       }
     }
     fetchData();
-  }, []);
+  }, [isAuthenticated, getAccessTokenSilently]); 
+
+  if (isLoading) {
+    return <div className="loading">Loading...</div>;
+  }
+
+  if (!isAuthenticated) {
+    return (
+      <div className="auth-prompt">
+        <header className="home-header">
+          <h1>🌤 Weather App</h1>
+        </header>
+        <main className="auth-content">
+          <AuthButton />
+        </main>
+        <footer className="home-footer">
+          &copy; {new Date().getFullYear()} Weather App. All rights reserved.
+        </footer>
+      </div>
+    );
+  }
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return <div className="loading">Loading weather data...</div>;
   }
 
   if (error) {
@@ -36,12 +65,12 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      {/* Header */}
+  
       <header className="home-header">
         <h1>🌤 Weather App</h1>
+        <AuthButton />
       </header>
 
-      {/* Weather Cards */}
       <main className="weather-grid">
         {weather.map((item) => (
           <WeatherCard
@@ -53,9 +82,8 @@ const Home = () => {
         ))}
       </main>
 
-      {/* Footer */}
       <footer className="home-footer">
-        &copy; {new Date().getFullYear()} Weather App. All rights reserved.
+        @ Weather App (Fidenz)
       </footer>
     </div>
   );
